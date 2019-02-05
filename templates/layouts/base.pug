@@ -27,14 +27,13 @@ html( class="no-js" lang="en" )
     block header
       include ../partials/header
 
-    .o-wrap.o-container(role="document")
-      .o-content
-        main.o-main(role="main")
-          .o-wrapper
-            block content
+    main.o-main(role="main")
+      .section
+        .container
+          block content
 
     block footer
-      .o-wrapper
+      .container
 
       include ../partials/footer
       include ../partials/scripts

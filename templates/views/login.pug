@@ -4,11 +4,13 @@ block content
   h1.title Sign in to your profile
   if(message)
     .notification= message
-  form.form.form--login(action="/login" method="POST")
+  form.form.form--login.box(action="/login" method="POST")
     .field
       label.label(for="email") Email Address
-      .control
+      .control.has-icons-left
         input#email.input(type="email", name="email")
+        span.icon.is-small.is-left
+          i.fas.fa-envelope
 
     input.button.is-primary(type="submit", value="Get login link")
 

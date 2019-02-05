@@ -8,18 +8,22 @@ block content
 
   if(errors)
     each error in errors
-      .notification.is-danger= error.msg
+      .notification.is-danger= error.message
 
-  form.form.form--signup(action="/signup", method="POST")
+  form.form.form--signup.box(action="/signup", method="POST")
     .field
       label.label(for="name") Full Name
-      .control
+      .control.has-icons-left
         input#name.input(type="text", name="name")
+        span.icon.is-small.is-left
+          i.fas.fa-id-card-alt
 
     .field
       label.label(for="email") Email Address
-      .control
+      .control.has-icons-left
         input#email.input(type="email", name="email")
+        span.icon.is-small.is-left
+          i.fas.fa-envelope
 
     .field
       .control
