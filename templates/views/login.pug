@@ -1,0 +1,14 @@
+extends ../layouts/base
+
+block content
+  h1.title Sign in to your profile
+  if(message)
+    .notification= message
+  form.form.form--login(action="/login" method="POST")
+    .field
+      label.label(for="email") Email Address
+      .control
+        input#email.input(type="email", name="email")
+
+    input.button.is-primary(type="submit", value="Get login link")
+

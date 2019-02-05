@@ -1,0 +1,22 @@
+extends ../layouts/base
+
+block content
+  h1.title Sign Up
+
+  if(message)
+    .notification= message
+
+  form.form.form--signup(action="/signup", method="POST")
+    .field
+      label.label(for="name") Full Name
+      .control
+        input#name.input(type="text", name="name")
+
+    .field
+      label.label(for="email") Email Address
+      .control
+        input#email.input(type="email", name="email")
+
+    .field
+      .control
+        input.button.is-primary(type="submit", value="Sign Up")
