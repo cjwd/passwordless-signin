@@ -6,6 +6,10 @@ block content
   if(message)
     .notification= message
 
+  if(errors)
+    each error in errors
+      .notification.is-danger= error.msg
+
   form.form.form--signup(action="/signup", method="POST")
     .field
       label.label(for="name") Full Name

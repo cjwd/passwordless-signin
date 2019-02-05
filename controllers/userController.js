@@ -2,6 +2,8 @@ const Airtable = require('airtable');
 const querystring = require('querystring');
 const nodemailer = require('nodemailer');
 const diffInMinutes = require('date-fns/difference_in_minutes');
+const { validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 const data = require('./dataController.js');
 
 const base = new Airtable({
@@ -54,6 +56,13 @@ const getUserByEmail = async (email) => {
 // End Helper Functions
 
 exports.signUp = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.render('index', { errors: errors.array() });
+    return;
+  }
+
   TABLE.create({
     name: req.body.name,
     email: req.body.email,
