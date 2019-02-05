@@ -3,7 +3,6 @@ const querystring = require('querystring');
 const nodemailer = require('nodemailer');
 const diffInMinutes = require('date-fns/difference_in_minutes');
 const { validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
 const data = require('./dataController.js');
 
 const base = new Airtable({
