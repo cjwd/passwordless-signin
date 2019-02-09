@@ -8,7 +8,7 @@ block content
 
   if(errors)
     each error in errors
-      .notification.is-danger= error.message
+      .notification.is-danger= error.msg
 
   form.form.form--signup.box(action="/signup", method="POST")
     .field
