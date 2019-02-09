@@ -10,8 +10,6 @@ router.get('/', (req, res) => {
 
 router.post('/signup', [
   check('name')
-    .isAlpha()
-    .withMessage('Your name has numbers!!!')
     .isLength({ min: 2, max: 50 })
     .withMessage('Your name cannot be just one character')
     .not()
