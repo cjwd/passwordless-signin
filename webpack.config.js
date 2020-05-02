@@ -1,59 +1,46 @@
-const webpack = require('webpack');
-
 const path = require('path');
-
-const fs = require('fs');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
 // the path(s) that should be cleaned
-let pathsToClean = [
-  'public/dist'
-]
+const pathsToClean = ['public/dist'];
 
 // the clean options to use
-let cleanOptions = {
+const cleanOptions = {
   root: __dirname,
   verbose: true,
   dry: false,
-  watch: true
-}
+  watch: true,
+};
 
 module.exports = {
   mode: devMode ? 'development' : 'production',
   entry: {
-    main: [
-      './public/javascripts/main.js',
-      './public/sass/main.scss',
-    ]
+    main: ['./public/javascripts/main.js', './public/sass/main.scss'],
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'public', 'dist')
+    path: path.resolve(__dirname, 'public', 'dist'),
   },
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
   },
   devtool: 'source-map',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
+      new TerserPlugin({
+        sourceMap: true,
       }),
-      new OptimizeCSSAssetsPlugin()
-    ]
+      new OptimizeCSSAssetsPlugin(),
+    ],
   },
   module: {
     rules: [
@@ -62,26 +49,23 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader:'css-loader',
+            loader: 'css-loader',
             options: {
               minimize: devMode,
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
-            loader:'sass-loader',
+            loader: 'sass-loader',
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.js$/,
@@ -91,18 +75,18 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               presets: ['env'],
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         loader: 'file-loader',
         options: {
-          name: 'public/images/[name].[ext]'
-        }
-      }
-    ]
+          name: 'public/images/[name].[ext]',
+        },
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -110,7 +94,6 @@ module.exports = {
       chunkFilename: devMode ? '[id].css' : '[id].[chunkhash].css',
     }),
 
-    new CleanWebpackPlugin(pathsToClean, cleanOptions)
-  ]
-
+    new CleanWebpackPlugin(pathsToClean, cleanOptions),
+  ],
 };
